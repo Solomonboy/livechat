@@ -143,6 +143,8 @@ padding-right: 1rem; }
   }
   `;
 
+
+
   document.head.appendChild(style);
 
   // Create chat widget container
@@ -272,7 +274,7 @@ Please provide your email address so we can get in touch with you.
     chatPopup.classList.toggle('hidden');
     chatPopup.classList.toggle('flex');
     if (!chatPopup.classList.contains('hidden')) {
-
+    window.parent.postMessage("open", "*");
         let uuid_chat = localStorage.getItem("uuid_chat");
         if (uuid_chat != null) {
         let response = await fetch(urlServer+'/'+uuid_chat+'/');
@@ -284,6 +286,10 @@ Please provide your email address so we can get in touch with you.
             nIntervId =  setInterval(refreshMes, 15000);
           }
         }
+            }
+            else
+            {
+            window.parent.postMessage("close", "*");
             }
       document.getElementById('chat-input').focus();
 
@@ -337,6 +343,7 @@ Please provide your email address so we can get in touch with you.
     }
   }
 //
+
 async function refreshMes() {
     if (!chatPopup.classList.contains('hidden'))
     {
